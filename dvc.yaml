@@ -1,0 +1,25 @@
+stages:
+  get_data:
+    cmd: python get_data.py
+    deps:
+    - get_data.py
+    outs:
+    - data_raw.csv
+  process:
+    cmd: python process_data.py
+    deps:
+    - process_data.py
+    - data_raw.csv
+    outs:
+    - data_processed.csv
+  train:
+    cmd: python train.py
+    deps:
+    - train.py
+    - data_processed.csv
+    outs:
+    - by_region.png
+    # metrics is special output and we are gonna wanna compare it across branches 
+    metrics:
+    - metrics.json:
+        cache: false # not store in local cache

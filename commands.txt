@@ -1,0 +1,30 @@
+# fetch data
+python get_data.py
+
+# process_data
+python process_data.py
+
+# train model
+python train.py
+
+# building pipeline using DVC pipelines
+# initialize DVC 
+dvc init 
+
+# declare pipeline in stages - get data -> process data -> train model
+dvc run -n get_data -d get_data.py -o data_raw.csv --no-exec python get_data.py
+# COMMAND BREAKUP
+# -n -> specify name of pipeline stage
+# -d -> dependency (everything required to run the stage)
+# -o -> outputs 
+# --no-exec -> dont want to run stage right now
+# ALWAYS END WITH -> command used to execute the stage
+
+# It'll create dvc.yaml with pipeline stpes. We can also edit this yaml file to build pipeline steps.
+# After adding other stages, save dvc.yaml
+
+# execute pipeline
+dvc repro
+
+
+
